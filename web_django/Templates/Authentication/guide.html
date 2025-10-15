@@ -1,0 +1,203 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help Center</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+  />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet"
+  />
+  <script
+    src="https://kit.fontawesome.com/be5a5c6271.js"
+    crossorigin="anonymous"
+  ></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="grid">
+    <nav class="header__navbar-help">
+      <ul class="header__nav-list-help">
+        <li class="header__nav-item-help">
+          <div class="header__logo-help">
+            <img src="{% static 'css/image/web-logo.png' %}" class="header__logo-img-help" />
+          </div>
+        </li>
+        <li class="header__nav-item-help">
+          <a href="{% url 'main' %}" class="header__nav-link-help">Trang chủ</a>
+        </li>
+        <li class="header__nav-item-help">
+          <span class="header__desc-help">Trung tâm trợ giúp</span>
+        </li>
+      </ul>
+      <ul class="header__nav-list-help">
+        <li class="header__nav-item-help">
+          <a href="{% url 'policy' %}" target="_blank" class="header__nav-policy-help">Chính sách &amp; bảo mật</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <!-- Header -->
+  <div class="header__container-help">
+    <h1 class="header__heading-help-text">
+      Xin chào, chúng tôi có thể giúp gì cho bạn?
+    </h1>
+  </div>
+  <!-- Main -->
+  <div class="main__container">
+    <div class="grid">
+      <div class="help">
+        <!-- Sidebar -->
+        <div class="help__sidebar">
+          <h3 class="help__sidebar-title">Câu hỏi thường gặp</h3>
+          <ul class="help__list">
+            <li><a href="#payment" onclick="showContent('payment')">Cách thanh toán</a></li>
+            <li><a href="#account" onclick="showContent('account')">Quản lý tài khoản</a></li>
+            <li><a href="#policy" onclick="showContent('policy')">Chính sách & bảo mật</a></li>
+            <li><a href="#shipping" onclick="showContent('shipping')">Giao hàng & vận chuyển</a></li>
+          </ul>
+        </div>
+        <!-- Content -->
+        <div id="help-content" class="help__content">
+          <h3>Xin chào 👋</h3>
+          <p>Chọn một câu hỏi bên trái để xem chi tiết.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+          <h3>Về chúng tôi</h3>
+          <p class="footer-description">Cửa hàng thể thao uy tín, chất lượng hàng đầu Việt Nam</p>
+          <div class="social-links">
+              <a href="#" aria-label="Facebook">
+                  <i class="fa-brands fa-facebook"></i>              
+              </a>
+              <a href="#" aria-label="Instagram">
+                  <i class="fa-brands fa-instagram"></i>
+              </a>
+          </div>
+      </div>
+      
+      <div class="footer-section">
+          <h3>Liên kết</h3>
+          <ul>
+              <li><a href="/">Trang chủ</a></li>
+              <li><a href="{% url 'guide' %}">Trợ giúp</a></li>
+              <li><a href="{% url 'policy' %}">Điều khoản & Dịch vụ</a></li>
+          </ul>
+      </div>
+      <div class="footer-section">
+          <h3>Liên hệ</h3>
+          <ul>
+              <li><i class="fa-solid fa-envelope"></i> SportClothes@example.com</li>
+              <li><i class="fa-solid fa-phone"></i> (84) 123-456-789</li>
+              <li><i class="fa-solid fa-location-dot"></i> Hà Nội, Việt Nam</li>
+          </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 SportClothes. Tất cả quyền được bảo lưu.</p>
+    </div>
+  </div>
+  
+  <script>
+    function showContent(topic) {
+      const content = document.getElementById('help-content');
+      
+      // Highlight active menu item
+      const menuItems = document.querySelectorAll('.help__list a');
+      menuItems.forEach(item => item.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      const contents = {
+        'payment': `
+          <h3>💳 Cách thanh toán</h3>
+          <h4>1. Thanh toán khi nhận hàng (COD)</h4>
+          <p>Bạn có thể thanh toán bằng tiền mặt khi nhận hàng. Phương thức này áp dụng cho tất cả các đơn hàng.</p>
+          
+          <h4>2. Chuyển khoản ngân hàng</h4>
+          <p>Thông tin tài khoản:</p>
+          <ul>
+            <li>Ngân hàng: Vietcombank</li>
+            <li>Số tài khoản: 1234567890</li>
+            <li>Chủ tài khoản: SPORTCLOTHES</li>
+          </ul>
+          
+          <h4>3. Thanh toán online</h4>
+          <p>Chúng tôi chấp nhận các hình thức: Visa, Mastercard, MOMO, ZaloPay</p>
+        `,
+        'account': `
+          <h3>👤 Quản lý tài khoản</h3>
+          <h4>Đăng ký tài khoản</h4>
+          <p>Bạn có thể đăng ký tài khoản bằng email hoặc số điện thoại. Sau khi đăng ký, bạn sẽ nhận được email xác nhận.</p>
+          
+          <h4>Quên mật khẩu</h4>
+          <p>Click vào "Quên mật khẩu" tại trang đăng nhập, nhập email đã đăng ký để nhận link đặt lại mật khẩu.</p>
+          
+          <h4>Cập nhật thông tin</h4>
+          <p>Truy cập "Tài khoản của tôi" để cập nhật thông tin cá nhân, địa chỉ giao hàng và số điện thoại.</p>
+        `,
+        'policy': `
+          <h3>🔒 Chính sách & bảo mật</h3>
+          <h4>Chính sách đổi trả</h4>
+          <p>Sản phẩm được đổi trả trong vòng 7 ngày kể từ ngày nhận hàng, giữ nguyên tem mác và chưa qua sử dụng.</p>
+          
+          <h4>Chính sách bảo mật</h4>
+          <p>Chúng tôi cam kết bảo mật thông tin cá nhân của khách hàng. Thông tin chỉ được sử dụng cho mục đích giao dịch.</p>
+          
+          <h4>Chính sách bảo hành</h4>
+          <p>Sản phẩm được bảo hành 6 tháng với lỗi do nhà sản xuất.</p>
+        `,
+        'shipping': `
+          <h3>🚚 Giao hàng & vận chuyển</h3>
+          <h4>Thời gian giao hàng</h4>
+          <ul>
+            <li>Nội thành Hà Nội: 1-2 ngày</li>
+            <li>Các tỉnh thành khác: 3-5 ngày</li>
+            <li>Vùng xa: 5-7 ngày</li>
+          </ul>
+          
+          <h4>Phí vận chuyển</h4>
+          <p>Miễn phí giao hàng cho đơn hàng từ 500.000đ. Đơn hàng dưới 500.000đ phí ship 30.000đ.</p>
+          
+          <h4>Tra cứu đơn hàng</h4>
+          <p>Bạn có thể tra cứu đơn hàng tại mục "Đơn hàng của tôi" trong tài khoản.</p>
+        `
+      };
+      
+      content.innerHTML = contents[topic] || '<h3>Nội dung không tồn tại</h3>';
+    }
+    
+    // Xử lý hash URL khi trang load
+    document.addEventListener("DOMContentLoaded", () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const topic = hash.substring(1);
+        showContent(topic);
+        // Highlight menu item
+        const link = document.querySelector(`a[href="#${topic}"]`);
+        if (link) link.classList.add('active');
+      }
+    });
+    
+    // Xử lý khi hash thay đổi
+    window.addEventListener('hashchange', () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const topic = hash.substring(1);
+        showContent(topic);
+      }
+    });
+  </script>
+
+</body>
+</html>

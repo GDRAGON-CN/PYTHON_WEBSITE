@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Cá Nhân - SportClothes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            padding: 20px;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .header-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            height: fit-content;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .sidebar h3 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ff6b35;
+        }
+
+        .menu-item {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #555;
+        }
+
+        .menu-item:hover {
+            background: #fff5f2;
+            color: #ff6b35;
+        }
+
+        .menu-item.active {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .menu-item i {
+            font-size: 1.1rem;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            background: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff5722;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+            margin-left: 1rem;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+
+        /* Order Table */
+        .order-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: box-shadow 0.3s;
+        }
+
+        .order-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .order-id {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .order-status {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-shipping {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .order-items {
+            margin: 1rem 0;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 1rem;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+        .menu-item a {
+            text-decoration: none;
+            color: #333;
+        }
+        .item-name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.3rem;
+        }
+
+        .item-info {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .order-total {
+            text-align: right;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .total-label {
+            color: #777;
+            margin-right: 1rem;
+        }
+
+        .total-amount {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ff6b35;
+        }
+
+        /* Address Cards */
+        .address-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .address-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .address-card:hover {
+            border-color: #ff6b35;
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.1);
+        }
+
+        .address-card.default {
+            border-color: #ff6b35;
+            background: #fff5f2;
+        }
+
+        .default-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #ff6b35;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .address-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .address-details {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .address-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 1.2rem;
+            border: 2px dashed #ddd;
+            background: white;
+            color: #666;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-add:hover {
+            border-color: #ff6b35;
+            color: #ff6b35;
+            background: #fff5f2;
+        }
+
+        /* Info Display */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #333;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column; /* giúp nút xuống dòng dưới tên */
+            justify-content: flex-start;
+        }
+
+        .item-name {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 6px; /* tạo khoảng cách với cụm nút */
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* căn lề trái */
+            gap: 6px;
+            background: #f9f9f9;
+            border-radius: 20px;
+            padding: 4px 6px;
+            width: fit-content;
+        }
+
+        .qty-btn {
+            background-color: #00bfff;
+            border: none;
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .qty-btn:hover {
+            background-color: #009adf;
+            transform: scale(1.1);
+        }
+
+        .quantity {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #333;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .item-price {
+            color: #ff6b35;
+            font-weight: 600;
+            white-space: nowrap;
+            font-size: 1rem;
+        }
+        
+        .remove-btn {
+        background-color: #ff4d4d !important;
+        color: white !important;
+        border-radius: 20px !important;
+        width: auto !important;
+        height: auto !important;
+        padding: 4px 10px !important;
+        font-size: 0.85rem !important;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        }
+
+
+        .remove-btn:hover {
+        background-color: #e04343 !important;
+        transform: scale(1.05);
+        }
+
+
+        @media (max-width: 968px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .address-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-top">
+            <div class="header-links">
+                <a href="{% url 'main' %}"><i class="fas fa-home"></i> Trang chủ</a>
+                <a href="{% url 'guide' %}"><i class="fas fa-question-circle"></i> Hỗ trợ</a>
+            </div>
+        </div>
+    </div>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3>Tài khoản của tôi</h3>
+            <div class="menu-item active" onclick="showSection('info')">
+                <i class="fas fa-user"></i>
+                <span>Thông tin cá nhân</span>
+            </div>
+            <div class="menu-item" onclick="showSection('orders')">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Đơn hàng của tôi</span>
+            </div>
+            <div class="menu-item" onclick="showSection('address')">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Địa chỉ của tôi</span>
+            </div>
+            <div class="menu-item" >
+                <a href='{% url 'signout' %}'>
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span >Đăng xuất</span>
+                </a>
+            </div>
+        </div>
+        <!-- Content Area -->
+        <div class="content">
+            <!-- Thông tin cá nhân -->
+            <div id="info" class="content-section active">
+                <h2 class="section-title">Thông tin cá nhân</h2>     
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Họ và tên</div>
+                        <div class="info-value">{{ user.profile.full_name }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Số điện thoại</div>
+                        <div class="info-value">{{ user.profile.phone }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Ngày sinh</div>
+                        <div class="info-value"> {{ user.profile.birthday }}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Giới tính</div>
+                        <div class="info-value">
+                            {% if user.profile.gender == 'male' %}
+                                Nam
+                            {% elif user.profile.gender == 'female' %}
+                                Nữ
+                            {% elif user.profile.gender == 'other' %}
+                                Khác
+                            {% else %}
+                                Chưa xác định
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST" action="{% url 'update_profile' %}">
+                    {% csrf_token %}
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Họ và tên *</label>
+                            <input type="text" name="full_name" value="{{ user.profile.full_name }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Số điện thoại *</label>
+                            <input type="tel" name="phone" value="{{ user.profile.phone }}" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ngày sinh</label>
+                            <input type="date" name="birthday" value="{{ user.profile.birthday|date:'Y-m-d' }}">
+                        </div>
+                        <div class="form-group">
+                            <label>Giới tính</label>
+                            <select name="gender">
+                                <option value="male" {% if user.profile.gender == 'male' %}selected{% endif %}>Nam</option>
+                                <option value="female" {% if user.profile.gender == 'female' %}selected{% endif %}>Nữ</option>
+                                <option value="other" {% if user.profile.gender == 'other' %}selected{% endif %}>Khác</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Lưu thay đổi
+                    </button>
+                </form>
+            </div>
+            <!-- Giỏ hàng hiện tại -->
+            <div id="orders" class="content-section">
+                <h2 class="section-title">Giỏ hàng của bạn</h2>
+                {% if items %}
+                <div class="order-card">
+                    <div class="order-header">
+                        <div>
+                            <div class="order-id">Giỏ hàng hiện tại</div>
+                            <div style="color: #777; font-size: 0.9rem; margin-top: 0.3rem;">
+                                Ngày tạo: {{ order.date_ordered|date:"d/m/Y" }}
+                            </div>
+                        </div>
+                        <span class="order-status status-processing">
+                            <i class="fas fa-shopping-cart"></i> Xác nhận đơn hàng
+                        </span>
+                    </div>
+                    <div class="order-items">
+                {% for item in items %}
+                <div class="order-item">
+                    <div class="item-image">
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width:50px; height:50px; border-radius:8px;">
+                        {% else %}
+                            <i class="fas fa-tshirt" style="font-size: 1.5rem;"></i>
+                        {% endif %}
+                    </div>
+                    <div class="item-details">
+                        <div class="item-name">{{ item.product.name }}</div>
+                        <div class="item-price" style="color: #666; font-size: 0.9rem;">
+                        Giá: {{ item.product.new_price|floatformat:0 }}đ
+                        </div>
+                        <div class="item-info">
+                            <div class="quantity-controls">
+                                <button class="qty-btn decrease" data-product="{{ item.product.id }}" data-action="remove">−</button>
+                                <span class="quantity">{{ item.quantity }}</span>
+                                <button class="qty-btn increase" data-product="{{ item.product.id }}" data-action="add">+</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div style="font-weight: 600; color: #ff6b35;">
+                        {{ item.get_total|floatformat:0 }}đ
+                        <br>
+                        <br>
+                        <!-- ✅ Nút xóa đặt ngay dưới tổng tiền -->
+                        <button class="qty-btn remove-btn" data-product="{{ item.product.id }}" data-action="delete">
+                            <i class="fa-solid fa-trash"></i> Xóa
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="order-total">
+                <span class="total-label">Tổng tiền:</span>
+                <span class="total-amount">{{ order.get_cart_total|floatformat:0 }}đ</span>
+            </div>
+            {% else %}
+                <p style="text-align:center; color:#777; margin-top:20px;">Giỏ hàng của bạn đang trống.</p>
+            {% endif %}
+            <!-- Địa chỉ -->
+            <div id="address" class="content-section">
+                <h2 class="section-title">Địa chỉ của tôi</h2>
+
+                <div class="address-grid">
+                    <div class="address-card default">
+                        <span class="default-badge">Mặc định</span>
+                        <div class="address-name">{{ user.profile.full_name }}</div>
+                        <div class="address-details">
+                            <div><i class="fas fa-phone"></i> {{ user.profile.phone }}</div>
+                            <div><i class="fas fa-map-marker-alt"></i> Số 123, Đường Giải Phóng, Hai Bà Trưng, Hà Nội</div>
+                        </div>
+                        <div class="address-actions">
+                            <button class="btn btn-primary btn-small">
+                                <i class="fas fa-edit"></i> Sửa
+                            </button>
+                            <button class="btn btn-secondary btn-small">
+                                <i class="fas fa-trash"></i> Xóa
+                            </button>
+                        </div>
+                    </div>
+                    <div class="address-card">
+                        <div class="address-name">Văn phòng</div>
+                        <div class="address-details">
+                            <div><i class="fas fa-phone"></i>{{ user.profile.phone }} </div>
+                            <div><i class="fas fa-map-marker-alt"></i> Tầng 5, Tòa nhà ABC, Phố Láng Hạ, Đống Đa, Hà Nội</div>
+                        </div>
+                        <div class="address-actions">
+                            <button class="btn btn-primary btn-small">
+                                <i class="fas fa-edit"></i> Sửa
+                            </button>
+                            <button class="btn btn-secondary btn-small">
+                                <i class="fas fa-trash"></i> Xóa
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="btn-add" onclick="addAddress()">
+                        <i class="fas fa-plus-circle" style="font-size: 1.2rem;"></i>
+                        <span>Thêm địa chỉ mới</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.content-section');
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        sections.forEach(section => section.classList.remove('active'));
+        menuItems.forEach(item => item.classList.remove('active'));
+        
+        const targetSection = document.getElementById(sectionId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            
+            const menuItem = document.querySelector(`.menu-item[onclick="showSection('${sectionId}')"]`);
+            if (menuItem) {
+                menuItem.classList.add('active');
+            }
+        }
+    }
+
+    function addAddress() {
+        alert('Chức năng thêm địa chỉ mới đang được phát triển!');
+    }
+
+    // Xử lý hash URL khi trang load
+    document.addEventListener("DOMContentLoaded", () => {
+        const hash = window.location.hash; 
+        if (hash) {
+            const sectionId = hash.substring(1);
+            showSection(sectionId);
+        }
+    });
+
+    // Xử lý khi hash thay đổi (back/forward browser)
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash;
+        if (hash) {
+            const sectionId = hash.substring(1);
+            showSection(sectionId);
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('qty-btn')) {
+        let productId = e.target.dataset.product;
+        let action = e.target.dataset.action;
+        console.log('Product:', productId, 'Action:', action);
+
+        fetch('/update_item/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken'),
+            },
+            body: JSON.stringify({ 'productId': productId, 'action': action })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Updated:', data);
+            location.reload(); // reload lại để cập nhật
+        });
+    }
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+    </script>
+</body>
+</html>
